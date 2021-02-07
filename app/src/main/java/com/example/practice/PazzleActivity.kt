@@ -17,9 +17,11 @@ class PazzleActivity : AppCompatActivity() {
 
         val myApp : MyApp = applicationContext() as MyApp
         bm = myApp.getMyBitmap()
+
         val seekBar : SeekBar = findViewById<SeekBar>(R.id.seekBar)
-        seekBar.max = 360
-        seekBar.setProgress(180)
+        var tempNum : Int = myApp.getSeekBarharf()
+        seekBar.max = myApp.getSeekBarMax()
+        seekBar.setProgress(myApp.getSeekBarharf())
         myApp.setSeekBar(seekBar)
 
         val window = findViewById<ConstraintLayout>(R.id.window)
@@ -36,14 +38,18 @@ class PazzleActivity : AppCompatActivity() {
 
             // 値が変更された時に呼ばれる
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                var diff : Int = progress - tempNum
                 iv = myApp.getImageView()
-                if(progress != 180) iv.rotation = progress.toFloat()
-                Log.d("rote",iv.rotation.toString())
+                iv.rotation = iv.rotation - diff.toFloat()
+                tempNum = progress
             }
 
             // つまみが離された時に呼ばれる
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
+                if(seekBar != null){
+                    tempNum = myApp.getSeekBarharf()
+                    seekBar.setProgress(tempNum)
+                }
             }
         })
     }

@@ -26,7 +26,7 @@ class TouchFunc(private val iv : ImageView) : AppCompatActivity() , View.OnTouch
             }
              MotionEvent.ACTION_DOWN -> {
                  myApp.setImageView(imageView)
-                 myApp.setSeekBarProgress(180)
+                 myApp.setSeekBarProgress(myApp.getSeekBarharf())
              }
             else -> {
                 println("stop")

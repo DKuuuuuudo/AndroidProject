@@ -11,6 +11,8 @@ class MyApp : Application(){
     private var bm : Bitmap? = null
     private lateinit var sb : SeekBar
     private lateinit var iv : ImageView
+    private val seekBarMax : Int = 360
+    private val seekBarharf : Int = 180
 
     override fun onCreate() {
         super.onCreate()
@@ -42,6 +44,14 @@ class MyApp : Application(){
 
     fun setImageView(iv : ImageView){
         this.iv = iv
+    }
+
+    fun getSeekBarMax() : Int{
+        return this.seekBarMax
+    }
+
+    fun getSeekBarharf() : Int{
+        return this.seekBarharf
     }
 
     init {
