@@ -29,8 +29,9 @@ class OpenCVFunc {
 
     fun cutImgArray(bitmap: Bitmap?) : Array<Array<Bitmap?>>{
         load()
+        val myApp : MyApp = MyApp.applicationContext() as MyApp
         var bm = bitmap
-        var bmAry = Array(4, { arrayOfNulls<Bitmap?>(6) })
+        var bmAry = Array(myApp.getColNum(), { arrayOfNulls<Bitmap?>(myApp.getRowNum()) })
         for(i in 0 until bmAry.size) {
             for(j in 0 until bmAry[i].size) {
 

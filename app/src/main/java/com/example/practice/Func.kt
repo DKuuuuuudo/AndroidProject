@@ -14,8 +14,8 @@ class Func(private val activity : PazzleActivity){
             for(j in 0 until bmAry[i].size) {
                 imgview = ImageView(activity)
                 imgview.setImageBitmap(bmAry[i][j])
-                imgview.translationX = ((0..650).random()).toFloat()
-                imgview.translationY = ((800..950).random()).toFloat()
+                /*imgview.translationX = ((0..650).random()).toFloat()
+                imgview.translationY = ((800..950).random()).toFloat()*/
                 imgview.rotation = ((0..360).random()).toFloat()
 
                 var draglistener : TouchFunc = TouchFunc(imgview)

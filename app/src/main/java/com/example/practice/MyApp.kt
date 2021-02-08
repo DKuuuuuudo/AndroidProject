@@ -13,6 +13,8 @@ class MyApp : Application(){
     private lateinit var iv : ImageView
     private val seekBarMax : Int = 360
     private val seekBarharf : Int = 180
+    private var rowNum : Int = 0
+    private var colNum : Int = 0
 
     override fun onCreate() {
         super.onCreate()
@@ -52,6 +54,22 @@ class MyApp : Application(){
 
     fun getSeekBarharf() : Int{
         return this.seekBarharf
+    }
+
+    fun getRowNum() : Int{
+        return this.rowNum
+    }
+
+    fun setRowNum(n: Int){
+        this.rowNum = n
+    }
+
+    fun getColNum() : Int{
+        return this.colNum
+    }
+
+    fun setColNum(n: Int){
+        this.colNum = n
     }
 
     init {
