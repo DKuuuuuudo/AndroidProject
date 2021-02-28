@@ -1,10 +1,14 @@
 package com.example.practice
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.content.res.Resources
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.drawable.toBitmap
 
@@ -13,12 +17,13 @@ class MainActivity : AppCompatActivity(){
     lateinit var colSeekBar : SeekBar
     lateinit var rowSeekBar : SeekBar
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sendActivity()
 
-        val spinnerVal = arrayOf(1, 2, 3, 4, 5, 6)
+        val spinnerVal = arrayOf(2, 3, 4, 5, 6)
         val adapter: ArrayAdapter<Int> = ArrayAdapter<Int>(this, android.R.layout.simple_spinner_item, spinnerVal)
         var rowspinner : Spinner = findViewById(R.id.rowspinner)
         var colspinner : Spinner = findViewById(R.id.colspinner)
@@ -42,8 +47,10 @@ class MainActivity : AppCompatActivity(){
 
         this.colSeekBar = findViewById<SeekBar>(R.id.colSeekBar)
         this.rowSeekBar = findViewById<SeekBar>(R.id.rowSeekBar)
-        this.colSeekBar.max = 600
-        this.rowSeekBar.max = 600
+        this.colSeekBar.max = 1000
+        this.rowSeekBar.max = 1000
+        this.colSeekBar.min = 1
+        this.rowSeekBar.min = 1
 
         // イベントリスナーの追加
         colSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -117,16 +124,28 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
-    private fun changeImageSize(rowSize: Int, colSize: Int){
+/*    private fun changeImageSize(rowSize: Int, colSize: Int){
         if(this.bm != null){
             val imageView = findViewById<ImageView>(R.id.imageView)
-            var bm = imageView.drawable.toBitmap()
-            val mutableBitmap = bm.copy(Bitmap.Config.ARGB_8888, true)
-            bm.recycle()
-            mutableBitmap.width = rowSize
-            mutableBitmap.height = colSize
-            imageView.setImageBitmap(mutableBitmap)
+            var res : Resources = resources
+            var options1 = BitmapFactory.Options()
+            options1.inScaled = false
+            var bitmap1 = BitmapFactory.decodeResource(res,R.drawable.h1,options1)
+            val bm = imageView.drawable.toBitmap()
+            var matrix : Matrix = Matrix()
+            matrix.setScale(rowSize.toFloat() , colSize.toFloat(), 1f, 1f)
+            var bitmap = Bitmap.createBitmap(bitmap1, rowSize, colSize, rowSize, colSize, matrix, true)
+            imageView.setImageBitmap(bitmap)
         }
+    }*/
+
+    private fun changeImageSize(rowSize: Int, colSize: Int){
+        val imageView = findViewById<ImageView>(R.id.imageView)
+        var params : ViewGroup.LayoutParams = imageView.layoutParams
+        params.width = rowSize
+        params.height = colSize
+
+        imageView.layoutParams = params
     }
 
     private fun sendActivity(){
